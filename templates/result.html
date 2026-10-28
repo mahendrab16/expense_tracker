@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Expense Added{% endblock %}
+{% block content %}
+<h1>Expense Added ✔</h1>
+<div class="card">
+  <p><strong>Title:</strong> {{ expense.title }}</p>
+  <p><strong>Category:</strong> {{ expense.category }}</p>
+  <p><strong>Amount:</strong> ₹{{ "%.2f"|format(expense.amount) }}</p>
+</div>
+<p>You have recorded <strong>{{ count }}</strong> expense(s) so far, totalling
+   <strong>₹{{ "%.2f"|format(total) }}</strong>.</p>
+<p><a href="{{ url_for('home') }}">Add another expense</a> |
+   <a href="{{ url_for('summary') }}">View summary</a></p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Summary{% endblock %}
+{% block content %}
+<h1>Spending Summary</h1>
+<table>
+  <tr><th>Category</th><th>Total (₹)</th></tr>
+  {% for category, amount in totals.items() %}
+    <tr><td>{{ category }}</td><td>{{ "%.2f"|format(amount) }}</td></tr>
+  {% endfor %}
+  <tr class="total"><td>Grand Total</td><td>{{ "%.2f"|format(grand_total) }}</td></tr>
+</table>
+{% endblock %}

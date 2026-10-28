@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add an Expense</h1>
+
+{% if error %}
+  <p class="error">{{ error }}</p>
+{% endif %}
+
+<form action="{{ url_for('add_expense') }}" method="POST">
+  <label>Title
+    <input type="text" name="title" value="{{ form.get('title', '') }}" placeholder="e.g. Lunch">
+  </label>
+  <label>Amount (₹)
+    <input type="text" name="amount" value="{{ form.get('amount', '') }}" placeholder="e.g. 120">
+  </label>
+  <label>Category
+    <select name="category">
+      {% for c in categories %}
+        <option value="{{ c }}" {% if form.get('category') == c %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="submit">Add Expense</button>
+</form>
+
+<h2>All Expenses</h2>
+{% if expenses %}
+  <table>
+    <tr><th>#</th><th>Title</th><th>Category</th><th>Amount (₹)</th></tr>
+    {% for e in expenses %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ e.title }}</td>
+        <td>{{ e.category }}</td>
+        <td>{{ "%.2f"|format(e.amount) }}</td>
+      </tr>
+    {% endfor %}
+    <tr class="total"><td colspan="3">Total</td><td>{{ "%.2f"|format(total) }}</td></tr>
+  </table>
+{% else %}
+  <p>No expenses yet. Add your first one above.</p>
+{% endif %}
+{% endblock %}
